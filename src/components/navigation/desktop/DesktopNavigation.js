@@ -7,6 +7,7 @@ import Feedback from "./Feedback";
 import { DevActionsDropdown } from "./DevActionsDropdown";
 import "react-tooltip/dist/react-tooltip.css";
 import { Tooltip } from "react-tooltip";
+import { useParams } from "react-router-dom";
 
 const feedbackLinks = [
   {
@@ -28,6 +29,25 @@ const feedbackLinks = [
 ];
 
 export function DesktopNavigation(props) {
+  const { widgetSrc } = useParams();
+
+  const Nav = styled.div`
+    display: flex;
+    height: 110px;
+    gap: 1rem;
+    align-items: center;
+    position: ${widgetSrc ? "relative" : "absolute"};
+    ${widgetSrc ? "justify-content: end;" : ""}
+    top: 0;
+    right: 0;
+    z-index: 1000;
+    margin-right: 64px;
+    @media screen and (max-width: 768px) {
+      height: 96px;
+      margin-right: 8px;
+    }
+  `;
+
   const tooltipRef = useRef();
   return (
     <>
@@ -62,21 +82,7 @@ export function DesktopNavigation(props) {
     </>
   );
 }
-const Nav = styled.div`
-  display: flex;
-  height: 110px;
-  gap: 1rem;
-  align-items: center;
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 1000;
-  margin-right: 64px;
-  @media screen and (max-width: 768px) {
-    height: 96px;
-    margin-right: 8px;
-  }
-`;
+
 const StyledNavigation = styled.div`
   width: 100%;
   padding: 12px 0;

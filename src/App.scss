@@ -1,5 +1,13 @@
 @import "bootstrap";
 
+.App {
+  overflow-x: hidden;
+  // padding-bottom: 100px;
+  // @media screen and (max-width: 473px) {
+  //   padding-bottom: 170px;
+  // }
+}
+
 body {
   overflow-y: scroll;
 }
@@ -47,5 +55,52 @@ a {
     min-width: 4rem;
     align-items: center !important;
     justify-content: center !important;
+  }
+}
+
+.feedback-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 120px;
+  z-index: 1001;
+  width: 100% !important;
+  padding: 8px 0 !important;
+  background: var(--slate-dark-5) !important;
+  a {
+    text-decoration: none;
+    color: white;
+    padding: 4px 14px;
+    transition: background 300ms ease-in-out;
+    font-weight: 500;
+    &:hover {
+      background: #0b99ff;
+    }
+  }
+}
+
+@keyframes gelatine {
+  0% {
+    transform: scale3d(1, 1, 1);
+  }
+  45% {
+    transform: scale3d(1, 1, 1);
+  }
+  50% {
+    transform: scale3d(1.15, 0.75, 1);
+  }
+  60% {
+    transform: scale3d(0.85, 1.25, 1);
+  }
+  70% {
+    transform: scale3d(1.08, 0.85, 1);
+  }
+  75% {
+    transform: scale3d(0.95, 1.05, 1);
+  }
+  85% {
+    transform: scale3d(1.05, 0.95, 1);
+  }
+  100% {
+    transform: scale3d(1, 1, 1);
   }
 }

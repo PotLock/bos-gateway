@@ -3,6 +3,7 @@ import { Widget } from "near-social-vm";
 import { useParams } from "react-router-dom";
 import { useQuery } from "../hooks/useQuery";
 import { useHashRouterLegacy } from "../hooks/useHashRouterLegacy";
+import { DesktopNavigation } from "../components/navigation/desktop/DesktopNavigation";
 
 export default function ViewPage(props) {
   useHashRouterLegacy();
@@ -48,15 +49,10 @@ export default function ViewPage(props) {
   }, [src, query, setWidgetSrc, viewSourceWidget]);
 
   return showMenu ? (
-    <div className="container-xl">
+    <div className="container-xl" style={{ position: "relative" }}>
+      <DesktopNavigation {...props} />
       <div className="row">
-        <div
-          className="position-relative"
-          style={{
-            "--body-top-padding": "24px",
-            paddingTop: "var(--body-top-padding)",
-          }}
-        >
+        <div className="position-relative">
           <Widget key={src} src={src} props={widgetProps} />
         </div>
       </div>

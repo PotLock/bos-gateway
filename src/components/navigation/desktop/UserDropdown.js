@@ -1,9 +1,10 @@
-import React, { useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import { Widget, useNear, useAccount } from "near-social-vm";
+import { Contract, connect } from "near-api-js";
+
 import styled from "styled-components";
 import { User } from "../../icons/User";
 import { LogOut } from "../../icons/LogOut";
-import { Withdraw } from "../../icons/Withdraw";
 import { Code } from "../../icons/Code";
 import { NavLink, Link } from "react-router-dom";
 import { NotificationWidget } from "../NotificationWidget";
@@ -64,6 +65,7 @@ const StyledDropdown = styled.div`
     button,
     a {
       color: var(--slate-dark-11);
+      font-size: 14px;
       display: flex;
       align-items: center;
       border-radius: 8px;
@@ -102,9 +104,42 @@ export function UserDropdown(props) {
   const near = useNear();
   const account = useAccount();
 
-  const withdrawStorage = useCallback(async () => {
-    await near.contract.storage_withdraw({}, undefined, "1");
-  }, [near]);
+  const [projectStatus, setProjectStatus] = useState("");
+
+  useEffect(() => {
+    (async function () {
+      if (account.accountId) {
+        const connectionConfig = {
+          networkId: "mainnet",
+          keyStore: near.keyStore,
+          nodeUrl: "https://rpc.mainnet.near.org",
+          helperUrl: "https://helper.mainnet.near.org",
+          explorerUrl: "https://explorer.mainnet.near.org",
+        };
+
+        // // connect to NEAR
+        const nearConnection = await connect(connectionConfig);
+        const accountConnection = await nearConnection.account();
+
+        const contract = new Contract(
+          accountConnection,
+          "registry.potlock.near",
+          {
+            viewMethods: ["get_project_by_id"],
+          }
+        );
+
+        try {
+          const project = await contract.get_project_by_id({
+            project_id: account.accountId,
+          });
+          setProjectStatus(project.status);
+        } catch {
+          setProjectStatus(false);
+        }
+      }
+    })();
+  }, []);
 
   return (
     <>
@@ -140,12 +175,19 @@ export function UserDropdown(props) {
         >
           <li>
             <NavLink
-              className="dropdown-item"
               type="button"
-              to={`/?tab=profile&accountId=${account.accountId}`}
+              to={
+                projectStatus
+                  ? `/?tab=project&projectId=${account.accountId}`
+                  : `/?tab=profile&accountId=${account.accountId}`
+              }
             >
               <User />
-              My Profile
+              {projectStatus
+                ? projectStatus === "Approved"
+                  ? "My Project"
+                  : `My Project (${projectStatus})`
+                : "My Profile"}
             </NavLink>
           </li>
           {props.widgetSrc?.view && (

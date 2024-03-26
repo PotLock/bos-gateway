@@ -113,7 +113,7 @@ function App() {
       },
       config: {
         defaultFinality: undefined,
-        nodeUrl: " http://near.lava.build",
+        nodeUrl: "https://near.lava.build",
       },
     };
 

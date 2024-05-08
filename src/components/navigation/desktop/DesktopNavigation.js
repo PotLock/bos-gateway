@@ -44,7 +44,7 @@ export function DesktopNavigation(props) {
     margin-right: 64px;
     @media screen and (max-width: 768px) {
       height: 96px;
-      margin-right: 8px;
+      margin-right: 3.5rem;
     }
   `;
 

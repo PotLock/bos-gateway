@@ -70,7 +70,6 @@ function App(props) {
         selector: setupWalletSelector({
           network: NetworkId,
           modules: [
-            setupNearWallet(),
             setupMyNearWallet(),
             setupSender(),
             setupHereWallet(),

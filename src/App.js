@@ -47,7 +47,7 @@ import { isValidAttribute } from "dompurify";
 export const refreshAllowanceObj = {};
 const documentationHref = "https://docs.potlock.io/";
 
-function App(props) {
+function App() {
   const [connected, setConnected] = useState(false);
   const [signedIn, setSignedIn] = useState(false);
   const [signedAccountId, setSignedAccountId] = useState(null);
@@ -64,53 +64,59 @@ function App(props) {
   const accountId = account.accountId;
 
   useEffect(() => {
-    initNear &&
-      initNear({
-        networkId: NetworkId,
-        selector: setupWalletSelector({
-          network: NetworkId,
-          modules: [
-            setupMyNearWallet(),
-            setupSender(),
-            setupHereWallet(),
-            setupMeteorWallet(),
-            setupNeth({
-              gas: "300000000000000",
-              bundle: false,
-            }),
-            setupNightly(),
-            setupMintbaseWallet(),
-            setupNearMobileWallet(),
-            setupBitgetWallet(),
-            setupNearFi(),
-            setupMathWallet(),
-            setupWelldoneWallet(),
-            // setupNearSnap(),
-            setupLedger(),
-            setupCoin98Wallet(),
-            setupRamperWallet(),
-          ],
-        }),
-        customElements: {
-          Link: (props) => {
-            if (!props.to && props.href) {
-              props.to = props.href;
-              delete props.href;
-            }
-            if (props.to) {
-              props.to =
-                typeof props.to === "string" &&
-                isValidAttribute("a", "href", props.to)
-                  ? props.to
-                  : "about:blank";
-            }
-            return <Link {...props} />;
-          },
+    const config = {
+      networkId: NetworkId,
+      selector: setupWalletSelector({
+        network: NetworkId,
+        modules: [
+          setupMyNearWallet(),
+          setupSender(),
+          setupHereWallet(),
+          setupMeteorWallet(),
+          setupNeth({
+            gas: "300000000000000",
+            bundle: false,
+          }),
+          setupNightly(),
+          setupMintbaseWallet(),
+          setupNearMobileWallet(),
+          setupBitgetWallet(),
+          setupNearFi(),
+          setupMathWallet(),
+          setupWelldoneWallet(),
+          // setupNearSnap(),
+          setupLedger(),
+          setupCoin98Wallet(),
+          setupRamperWallet(),
+        ],
+      }),
+      customElements: {
+        Link: (props) => {
+          let passProps = { ...props };
+
+          if (!passProps.to && passProps.href) {
+            passProps.to = passProps.href;
+            delete passProps.href;
+          }
+
+          if (passProps.to) {
+            passProps.to =
+              typeof passProps.to === "string" &&
+              isValidAttribute("a", "href", passProps.to)
+                ? passProps.to
+                : "about:blank";
+          }
+
+          return <Link {...passProps} />;
         },
-        config: {
-          defaultFinality: undefined,
-        },
-      });
+      },
+      config: {
+        defaultFinality: undefined,
+        nodeUrl: "https://near.lava.build",
+      },
+    };
+
+    initNear && initNear(config);
   }, [initNear]);
 
   useEffect(() => {

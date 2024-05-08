@@ -69,7 +69,6 @@ function App() {
       selector: setupWalletSelector({
         network: NetworkId,
         modules: [
-          setupNearWallet(),
           setupMyNearWallet(),
           setupSender(),
           setupHereWallet(),

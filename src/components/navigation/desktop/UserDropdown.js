@@ -117,6 +117,10 @@ const ProfileInfo = styled.div`
   .profile-name {
     font-weight: 600;
     font-size: 1rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 175px;
   }
   .profile-username {
     color: #656565;

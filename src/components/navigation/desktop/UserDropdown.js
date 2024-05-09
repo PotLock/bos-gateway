@@ -206,7 +206,7 @@ export function UserDropdown(props) {
             const isUserHumanVerified = await nadabotContract.is_human({
               account_id: account.accountId,
             });
-            setProjectStatus(isUserHumanVerified ? "Human" : false);
+            setProjectStatus(isUserHumanVerified ? "Human Verified" : false);
           }
         } catch (err) {
           console.log("err", err);
@@ -216,7 +216,7 @@ export function UserDropdown(props) {
     })();
   }, []);
 
-  const isDonor = !projectStatus || projectStatus === "Human";
+  const isDonor = !projectStatus || projectStatus === "Human Verified";
 
   const ProfileImage = () => (
     <Widget
@@ -272,10 +272,7 @@ export function UserDropdown(props) {
                     background: statuses[projectStatus]?.background,
                   }}
                 >
-                  <div>
-                    {projectStatus === "Human" ? "Approved" : projectStatus}
-                  </div>{" "}
-                  {statuses[projectStatus]?.icon}
+                  <div>{projectStatus}</div> {statuses[projectStatus]?.icon}
                 </DropdownStatus>
               </li>
             )}

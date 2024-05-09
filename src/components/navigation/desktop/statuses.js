@@ -87,7 +87,7 @@ const statuses = {
     color: "#fff",
     background: "#292929",
   },
-  Human: {
+  "Human Verified": {
     icon: <img src="/assets/nadaboticon.png" alt="nadabot-icon" />,
     color: "#0B7A74",
     background: "#EFFEFA",

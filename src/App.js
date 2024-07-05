@@ -23,7 +23,7 @@ import { setupBitgetWallet } from "@near-wallet-selector/bitget-wallet";
 import { setupNearFi } from "@near-wallet-selector/nearfi";
 import { setupMathWallet } from "@near-wallet-selector/math-wallet";
 import { setupWelldoneWallet } from "@near-wallet-selector/welldone-wallet";
-import { setupNearSnap } from "@near-wallet-selector/near-snap";
+import { setupOKXWallet } from "@near-wallet-selector/okx-wallet";
 import { setupLedger } from "@near-wallet-selector/ledger";
 import { setupCoin98Wallet } from "@near-wallet-selector/coin98-wallet";
 import { setupRamperWallet } from "@near-wallet-selector/ramper-wallet";
@@ -71,6 +71,7 @@ function App() {
         modules: [
           setupMyNearWallet(),
           setupSender(),
+          setupMintbaseWallet(),
           setupHereWallet(),
           setupMeteorWallet(),
           setupNeth({
@@ -78,13 +79,12 @@ function App() {
             bundle: false,
           }),
           setupNightly(),
-          setupMintbaseWallet(),
+          setupOKXWallet(),
           setupNearMobileWallet(),
           setupBitgetWallet(),
           setupNearFi(),
           setupMathWallet(),
           setupWelldoneWallet(),
-          // setupNearSnap(),
           setupLedger(),
           setupCoin98Wallet(),
           setupRamperWallet(),

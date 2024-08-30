@@ -29,6 +29,7 @@ import { setupCoin98Wallet } from "@near-wallet-selector/coin98-wallet";
 import { setupRamperWallet } from "@near-wallet-selector/ramper-wallet";
 import { setupMintbaseWallet } from "@near-wallet-selector/mintbase-wallet";
 import { setupModal } from "@near-wallet-selector/modal-ui";
+import { setupBitteWallet } from "@near-wallet-selector/bitte-wallet";
 import EmbedPage from "./pages/EmbedPage";
 import {
   useAccount,
@@ -69,25 +70,26 @@ function App() {
       selector: setupWalletSelector({
         network: NetworkId,
         modules: [
-          setupMyNearWallet(),
-          setupSender(),
-          setupMintbaseWallet(),
+          setupBitgetWallet(),
+          setupBitteWallet(),
+          setupCoin98Wallet(),
           setupHereWallet(),
+          setupLedger(),
+          setupMathWallet(),
           setupMeteorWallet(),
+          setupMintbaseWallet(),
+          setupMyNearWallet(),
+          setupNearMobileWallet(),
+          setupNearFi(),
           setupNeth({
             gas: "300000000000000",
             bundle: false,
           }),
           setupNightly(),
           setupOKXWallet(),
-          setupNearMobileWallet(),
-          setupBitgetWallet(),
-          setupNearFi(),
-          setupMathWallet(),
-          setupWelldoneWallet(),
-          setupLedger(),
-          setupCoin98Wallet(),
           setupRamperWallet(),
+          setupSender(),
+          setupWelldoneWallet(),
         ],
       }),
       customElements: {

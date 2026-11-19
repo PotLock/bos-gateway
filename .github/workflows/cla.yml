@@ -14,6 +14,7 @@ permissions:
 
 jobs:
   CLAAssistant:
+    timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
       - name: "CLA Assistant"
